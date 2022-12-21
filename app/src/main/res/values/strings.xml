@@ -1,0 +1,182 @@
+<resources>
+    <!--App name-->
+    <string name="app_name">Plashr</string>
+
+    <!--Bottom Nav strings-->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="collections">Collections</string>
+    <string name="profile">Profile</string>
+    <string name="topics">Topics</string>
+    <string name="editorial">Editorial</string>
+
+    <!--User-->
+    <string name="likes">Likes</string>
+    <string name="links">Links</string>
+    <string name="username">"@%s"</string>
+
+    <!--Image Info-->
+    <string name="more_info">More Info</string>
+    <string name="publish_date">Published on %s</string>
+    <string name="description">Description</string>
+    <string name="views">Views</string>
+    <string name="downloads">Downloads</string>
+
+    <!--Photo Exif Strings-->
+    <string name="stats">Stats</string>
+    <string name="exif">Exif</string>
+    <string name="camera_make">Camera</string>
+    <string name="camera_model">Model</string>
+    <string name="focal_length">Focal Length</string>
+    <string name="focal_length_mm">%smm</string>
+    <string name="aperture">Aperture</string>
+    <string name="aperture_f">"f/%s"</string>
+    <string name="shutter_speed">Shutter Speed</string>
+    <string name="shutter_speed_count">%ss</string>
+    <string name="iso">ISO</string>
+    <string name="dimensions">Dimensions</string>
+    <string name="photoLocationDescription">Photo Location Icon</string>
+
+    <!--Sign up / Sign In-->
+    <string name="signup_message">Don\'t have an account? </string>
+    <string name="title_logout">Logout</string>
+    <string name="logging_in">Logging in</string>
+    <string name="fetching_access_token_message">Fetching Access Token</string>
+    <string name="fetching_user_profile_message">Fetching User Profile</string>
+    <string name="fetching_user_public_profile_message">Fetching User Public Profile</string>
+    <string name="restarting_app_message">Restarting App </string>
+
+    <!--Sign In Messages-->
+    <string name="creation_starts_here">Creation starts here</string>
+    <string name="login_description">Login into your unsplash account to access more features.</string>
+
+    <!--Search-->
+    <string name="filter">Filter</string>
+    <string name="searchQuery"><font size="16">Search photos</font></string>
+    <string name="search_results_error">Sorry we couldn\'t find any %s matches for <b>%s</b></string>
+    <string name="search_results_error_message">Please try searching with another term</string>
+
+    <!-- Message Prompts-->
+    <string name="error_loading_results">Error loading results.</string>
+    <string name="error_icon">Error icon</string>
+    <string name="it_is_a_bit_empty_here">It\'s a bit empty here.</string>
+    <string name="error_loading_results_2">Error Loading Results. Please try again.</string>
+    <string name="could_not_load_photo">Couldn\'t load photo.</string>
+    <string name="share_photo_intent_message">Check out this photo by %1$s on Unsplash %2$s</string>
+    <string name="share_topic_intent_message">Check out this topic on Unsplash %s</string>
+    <string name="share_collection_intent_message">Check out this collection on Unsplash %s</string>
+    <string name="user_share_name_link" formatted="false"><![CDATA[<a href="http://unsplash.com/%s">%s</a>]]></string>
+    <string name="retry_string">Retry</string>
+
+    <!-- Photo Filters -->
+    <string name="set_filters">Set Filters</string>
+    <string name="square">Square</string>
+    <string name="portrait">Portrait</string>
+    <string name="landscape">Landscape</string>
+    <string name="all">All</string>
+    <string name="orientation">Orientation</string>
+    <string name="blue">Blue</string>
+    <string name="teal">Teal</string>
+    <string name="green">Green</string>
+    <string name="magenta">Magenta</string>
+    <string name="purple">Purple</string>
+    <string name="red">Red</string>
+    <string name="orange">Orange</string>
+    <string name="yellow">Yellow</string>
+    <string name="white">White</string>
+    <string name="black">Black</string>
+    <string name="black_and_white">Black and white</string>
+    <string name="color">Color</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="content_filter">Content Filter</string>
+    <string name="relevance">Relevance</string>
+    <string name="latest">Latest</string>
+    <string name="order_by">Order by</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="reset">Reset</string>
+
+    <!--Add to collection-->
+    <string name="add_to_collection">Add to collection</string>
+    <string name="add">Add</string>
+    <string name="done">Done</string>
+
+    <!--Create collection-->
+    <string name="create_collection">Create collection</string>
+    <string name="collection_name">Collection name</string>
+    <string name="collection_description">Description (Optional)</string>
+    <string name="make_collection_private">Make collection private</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+
+    <!--Edit Profile-->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="username_string">Username</string>
+    <string name="bio">Bio</string>
+    <string name="email">Email</string>
+    <string name="personal_website">Personal Website</string>
+    <string name="location">Location</string>
+    <string name="instagram_username">Instagram Username</string>
+
+    <!--Topic-->
+    <string name="owners">Owners</string>
+    <string name="top_contributors">Top Contributors</string>
+
+    <!--Topic(s)-->
+    <plurals name="topic_photo_count">
+        <item quantity="one">Topic • %s photo</item>
+        <item quantity="other">Topic • %s photos</item>
+    </plurals>
+
+    <!--Collection(s)-->
+    <plurals name="collection_photo_count">
+        <item quantity="one">Collection • %s photo</item>
+        <item quantity="other">Collection • %s photos</item>
+    </plurals>
+
+    <!--Photo(s) count-->
+    <plurals name="photo_count">
+        <item quantity="one"> %s photo</item>
+        <item quantity="other">%s photos</item>
+    </plurals>
+
+    <!--Views descriptions-->
+    <string name="topic_cover_photo">Topic Cover Photo</string>
+    <string name="collection_cover_photo">Collection Cover Photo</string>
+    <string name="likePhotoButtonDescription">Like Photo Button</string>
+    <string name="collectPhotoButtonDescription">Collect Photo Button</string>
+    <string name="downloadPhotoButtonDescription">Download Photo Button</string>
+
+    <!--Settings-->
+    <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
+    <string name="cache">Cache</string>
+    <string name="clear_cache">Clear cache</string>
+
+    <!--Uncategorized-->
+    <string name="user">User</string>
+    <string name="users">Users</string>
+    <string name="photo">Photo</string>
+    <string name="photos">Photos</string>
+    <string name="layout">Layout</string>
+    <string name="save">Save</string>
+    <string name="curated_by">Curated by</string>
+    <string name="curated_by_username">Curated by %s</string>
+    <string name="share">Share</string>
+    <string name="login">Login</string>
+    <string name="register_now">Register now</string>
+    <string name="filter_photos">Set Filters</string>
+
+
+    <string name="it_s_a_bit_empty_here">It\'s a bit empty here.</string>
+    <string name="photo_count">%s Photos</string>
+    <string name="topic_count">Topic • %s photos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_on_unsplash">View on\nUnsplash</string>
+    <string name="like">Like</string>
+    <string name="download">Download</string>
+    <string name="collect">Collect</string>
+</resources>

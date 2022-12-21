@@ -1,0 +1,77 @@
+buildscript {
+
+    ext {
+        appAuthVersion = '0.11.1'
+        annotationVersion = '1.5.0'
+        appCompatVersion = '1.5.1'
+        browserVersion = '1.4.0'
+        constraintLayoutVersion = '2.1.4'
+        core_splashscreen='1.0.0'
+        circleImageviewVersion = "3.1.0"
+        datastorePreferencesVersion = "1.0.0"
+        espressoVersion = '3.5.0'
+        gradleVersion = '7.0.4'
+        glideVersion = '4.14.2'
+        glideCompilerVersion = '4.14.2'
+        googleServices = '4.3.10'
+        gsonVersion = '2.10'
+        hiltAndroidXVersion = '1.0.0-alpha02'
+        hiltVersion = '2.44.2'
+        junitVersion = '4.13.2'
+        kotlinxCoroutinesAndroidVersion = '1.6.4'
+        kotlinxCoroutinesCoreVersion = '1.6.4'
+        kotlinVersion = ' 1.7.0'
+        kotlinStdlibJdk8Version = '1.7.10'
+        kotlinGradlePluginVersion = '1.7.0'
+        ktxVersion = '1.9.0'
+        legacySupportV4Version = '1.0.0'
+        lifecycleLivedataKtxVersion = '2.5.1'
+        lifecycleViewmodelKtxVersion = '2.5.1'
+        lifecycleCommonJava8Version = '2.4.1'
+        materialVersion = '1.8.0-beta01'
+        navigationVersion = '2.4.1'
+        navVersion = '2.5.2'
+        navigationDynamicFeaturesFragmentVersion = '2.5.3'
+        navigationFragmentKtxVersion = '2.5.3'
+        navigationUiKtxVersion = '2.5.3'
+        okhttp3LoggingInterceptorVersion = "5.0.0-alpha.2"
+        pagingRuntimeKtxVersion = "3.1.1"
+        preferenceKtxVersion = '1.2.0'
+        photoViewVersion = '2.3.0'
+        retrofitVersion = '2.9.0'
+        retrofitConverterGsonVersion = '2.9.0'
+        retrofit2KotlinCoroutinesAdapterVersion = '0.9.2'
+        testExtJunitVersion = '1.1.4'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
+        classpath "com.google.gms:google-services:$googleServices"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

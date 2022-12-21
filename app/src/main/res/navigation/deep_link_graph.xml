@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deep_link_graph"
+    app:startDestination="@id/singlePhotoDetailsActivity"
+    tools:ignore="InvalidNavigation">
+
+    <activity
+        android:id="@+id/singlePhotoDetailsActivity"
+        android:name="com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity"
+        android:label="photo_details"
+        tools:layout="@layout/activity_single_photo_details">
+
+        <deepLink app:uri="https://unsplash.com/photos/{photoId}" />
+
+    </activity>
+
+    <!--  <activity
+          android:id="@+id/singleCollectionActivity"
+          android:name="com.muigorick.plashr.ui.activities.collections.SingleCollectionDetailsActivity"
+          android:label="single_collection">
+          <deepLink app:uri="https://unsplash.com/collections/{collectionId}/{collectionName}" />
+      </activity>-->
+
+</navigation>

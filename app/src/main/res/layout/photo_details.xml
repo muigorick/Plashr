@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/imageActionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/likeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/collectButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/favorite" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Like"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/collectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/likeButton"
+            app:layout_constraintEnd_toStartOf="@+id/downloadButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/likeButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/collect" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Collect"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/downloadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/collectButton"
+            app:layout_constraintEnd_toStartOf="@+id/viewOnUnsplashButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/collectButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/download" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Download"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/viewOnUnsplashButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shareButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/downloadButton"
+            app:layout_constraintTop_toTopOf="@+id/downloadButton">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/web" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/view_on_unsplash"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/viewOnUnsplashButton"
+            app:layout_constraintTop_toTopOf="@+id/viewOnUnsplashButton">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/share" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Like"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:dividerColor="#C7C7C7"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageActionButtons"  />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePicCircleImageView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/userFullNameTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/profilePicCircleImageView"
+        app:layout_constraintTop_toTopOf="@+id/profilePicCircleImageView" />
+
+    <TextView
+        android:id="@+id/userNameTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintBottom_toBottomOf="@+id/profilePicCircleImageView"
+        app:layout_constraintEnd_toEndOf="@+id/userFullNameTxt"
+        app:layout_constraintStart_toStartOf="@+id/userFullNameTxt"
+        app:layout_constraintTop_toBottomOf="@+id/userFullNameTxt" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/publishedDateTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/publish_date"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/profilePicCircleImageView"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicCircleImageView" />
+
+    <ImageView
+        android:id="@+id/locationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/photoLocationDescription"
+        android:src="@drawable/ic_location_24"
+        app:layout_constraintStart_toStartOf="@+id/profilePicCircleImageView"
+        app:layout_constraintTop_toBottomOf="@+id/publishedDateTxt" />
+
+    <TextView
+        android:id="@+id/locationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintBottom_toBottomOf="@id/locationIcon"
+        app:layout_constraintStart_toEndOf="@+id/locationIcon"
+        app:layout_constraintTop_toTopOf="@+id/locationIcon" />
+
+    <TextView
+        android:id="@+id/descriptionTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:textSize="14dp"
+        android:textColor="@color/captionColor"
+        app:layout_constraintEnd_toEndOf="@id/userNameTxt"
+        app:layout_constraintStart_toStartOf="@+id/locationIcon"
+        app:layout_constraintTop_toBottomOf="@id/locationIcon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="Exif"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintEnd_toEndOf="@+id/userNameTxt"
+        app:layout_constraintStart_toStartOf="@+id/profilePicCircleImageView"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTxt" />
+
+    <LinearLayout
+        android:id="@+id/photoDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/divider1"
+        app:layout_constraintStart_toStartOf="@+id/divider1"
+        app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera_make"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/cameraMakeTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera_model"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/cameraModelTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/focal_length"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/photoFocalLengthTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aperture"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/photoApertureTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shutter_speed"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/photoExposureTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="50"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iso"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/photoIsoTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="50"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dimensions"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/dimensionsTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/photoTagsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photoDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

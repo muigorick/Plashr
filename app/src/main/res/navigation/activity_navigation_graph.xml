@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_navigation_graph"
+    app:startDestination="@id/singleCollectionDetailsActivity">
+
+    <activity
+        android:id="@+id/singleCollectionDetailsActivity"
+        android:name="com.muigorick.plashr.ui.activities.collections.SingleCollectionDetailsActivity"
+        android:label="activity_single_collection_details"
+        tools:layout="@layout/activity_single_collection_details">
+
+    </activity>
+    <activity
+        android:id="@+id/singlePhotoDetailsActivity"
+        android:name="com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity"
+        android:label="activity_single_photo_details"
+        tools:layout="@layout/activity_single_photo_details" />
+
+
+</navigation>

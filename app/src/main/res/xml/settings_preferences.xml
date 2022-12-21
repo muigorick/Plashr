@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="General">
+        <ListPreference
+            android:defaultValue="@string/default_app_theme"
+            android:entries="@array/app_theme"
+            android:entryValues="@array/app_theme_values"
+            android:key="key_app_theme"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/default_app_theme"
+            android:title="@string/theme" />
+        <ListPreference
+            android:defaultValue="@string/default_image_layout"
+            android:entries="@array/image_layout"
+            android:entryValues="@array/image_layout_values"
+            android:key="key_image_layout"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/default_image_layout"
+            android:title="@string/layout" />
+        <Preference
+            android:key="key_clear_cache"
+            android:summary="Cache Size:"
+            android:title="@string/clear_cache"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="About">
+
+        <Preference
+            android:defaultValue="Default value"
+            android:key="key_rate_app"
+            android:summary="Rate and review the app on the Google Play Store"
+            android:title="Rate App" />
+
+        <Preference
+            android:defaultValue="Default value"
+            android:key="key_feedback"
+            android:summary="Report bugs and suggest improvements"
+            android:title="Send Feedback" />
+
+        <Preference
+            android:defaultValue="Default value"
+            android:key="key_app_privacy_policy"
+            android:title="Privacy policy" />
+
+        <Preference
+            android:defaultValue="Default value"
+            android:key="key_about_us"
+            android:title="About the app" />
+
+        <Preference
+            android:defaultValue="Default value"
+            android:key="key_app_version"
+            android:summary="v1.0.0"
+            android:title="App Version" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

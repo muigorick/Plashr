@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent_layout"
+    android:layout_gravity="bottom"
+    tools:context=".ui.bottomNavigation.profile.ProfileFragment">
+
+    <!--Not Signed In layout-->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondaryVariant"
+        android:visibility="visible"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0.8dp"
+        app:contentPaddingBottom="16dp"
+        app:strokeWidth="0dp"
+        app:contentPaddingTop="16dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--   <com.google.android.material.imageview.ShapeableImageView
+                   android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:layout_marginBottom="32dp"
+                   android:adjustViewBounds="true"
+                   android:background="@color/colorPrimary"
+                   android:src="@drawable/ic_user"
+                   app:contentPadding="24dp"
+                   app:layout_constraintBottom_toTopOf="@+id/loginMessage"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:shapeAppearanceOverlay="@style/ShapeAppearance.CircleImageView" />-->
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/loginMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/creation_starts_here"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintBottom_toTopOf="@+id/login_description"
+                app:layout_constraintEnd_toEndOf="@+id/login_description"
+                app:layout_constraintStart_toStartOf="@+id/login_description" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/login_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_description"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@+id/sign_up_desc"
+                app:layout_constraintEnd_toEndOf="@+id/login_button"
+                app:layout_constraintStart_toStartOf="@+id/login_button" />
+
+            <LinearLayout
+                android:id="@+id/sign_up_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/login_button"
+                app:layout_constraintEnd_toEndOf="@+id/login_button"
+                app:layout_constraintStart_toStartOf="@+id/login_button">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_message"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/register_now_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/register_now"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/signup_message"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/signup_message" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:elevation="0dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

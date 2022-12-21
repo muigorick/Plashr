@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    tools:context=".ui.bottomNavigation.home.HomeFragment">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/editorialHeaderTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/editorial"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/editorialPhotosRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:nestedScrollingEnabled="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editorialHeaderTxt"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homePhotosRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />-->
+
+
+    <!--<com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:indicatorColor="@color/colorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackColor="@color/colorPrimary" />
+
+            <include
+                android:id="@+id/results_empty"
+                layout="@layout/search_results_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+
+                app:layout_constraintBottom_toBottomOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintEnd_toEndOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintStart_toStartOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintTop_toTopOf="@+id/homePhotosRecyclerView" />
+
+            <include
+                android:id="@+id/loading_error_layout"
+                layout="@layout/loading_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintEnd_toEndOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintStart_toStartOf="@+id/homePhotosRecyclerView"
+                app:layout_constraintTop_toTopOf="@+id/homePhotosRecyclerView" />-->

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/justCoal"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp">
+    <!--tools:context=".ui.bottomNavigation.search.tablayout.searchPhotos.SearchPhotosFilterBottomSheetFragment"-->
+    <!-- TODO Add corresponding ids for all chips
+         TODO This is more of a design sit down at this point. Check in later. Latest Friday implementation should be the 23rd of July 2021.
+    -->
+
+    <TextView
+        android:id="@+id/filter_search_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/filter_photos"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/filter_search_txt" />
+
+    <!-- Order by chips start-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/orderByChipGroup"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="@string/order_by"
+        app:boxStrokeWidth="0.5dp"
+        app:boxStrokeWidthFocused="0.5dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/filter_search_txt"
+        app:layout_constraintTop_toBottomOf="@+id/filter_search_txt">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <!--<TextView
+        android:id="@+id/orderByTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/order_by"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintStart_toStartOf="@+id/filter_search_txt"
+        app:layout_constraintTop_toBottomOf="@+id/filter_search_txt" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/orderByChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/orderByTxt"
+        app:layout_constraintTop_toBottomOf="@+id/orderByTxt"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/latest" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/relevance" />
+
+    </com.google.android.material.chip.ChipGroup>-->
+    <!-- Order by chips end-->
+
+    <!-- Content filter chips start-->
+    <TextView
+        android:id="@+id/contentFilterTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/content_filter"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintStart_toStartOf="@+id/orderByChipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/orderByChipGroup" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/contentFilterChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/contentFilterTxt"
+        app:layout_constraintTop_toBottomOf="@+id/contentFilterTxt"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/low" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/high" />
+
+    </com.google.android.material.chip.ChipGroup>
+    <!-- Content filter chips end-->
+
+    <!-- TODO Add corresponding colors in each chip-->
+    <!-- Colors chips start-->
+    <TextView
+        android:id="@+id/colorTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/color"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintStart_toStartOf="@+id/contentFilterChipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/contentFilterChipGroup" />
+
+    <HorizontalScrollView
+        android:id="@+id/colorChipGroupScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="@+id/colorTxt"
+        app:layout_constraintTop_toBottomOf="@+id/colorTxt">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/colorChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/allColorsChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/all" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/blackAndWhiteColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/black_and_white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/blackColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/black" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/whiteColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/yellowColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yellow" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/orangeColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/orange" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/redColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/red" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/purpleColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/purple" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/magentaColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/magenta" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/greenColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/green" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tealColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teal" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/blueColorChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/blue" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Colors chips end-->
+
+    <!-- Orientation chips start-->
+    <TextView
+        android:id="@+id/orientationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/orientation"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintStart_toStartOf="@+id/colorTxt"
+        app:layout_constraintTop_toBottomOf="@+id/colorChipGroupScrollView" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/orientationChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/orientationTxt"
+        app:layout_constraintTop_toBottomOf="@id/orientationTxt"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landscape" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/portrait" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/square" />
+    </com.google.android.material.chip.ChipGroup>
+    <!-- Orientation chips end-->
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/apply_filter"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/colorOnPrimary"
+        app:cornerRadius="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/orientationChipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/orientationChipGroup"
+        app:rippleColor="@color/colorPrimaryVariant" />
+</androidx.constraintlayout.widget.ConstraintLayout>

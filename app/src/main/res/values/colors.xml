@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryVariant">#151617</color>
+    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorSecondary">#000000</color>
+    <color name="colorSecondaryVariant">#151617</color>
+    <color name="colorOnSecondary">@color/white</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="navItemBackgroundColor">#000000</color>
+
+    <color name="buttonColor">#151617</color>
+    <color name="openButtonColor">#3CB46E</color>
+    <color name="topicBackgroundColor">#F5F7FB</color>
+    <color name="backgroundColor">@color/white</color>
+
+    <color name="likedImageBtnColor">#E40000</color>
+  <!--  <color name="colorControlNormal">?attr/colorControlNormal</color>-->
+
+    <color name="searchBarColor">#FCFCFC</color>
+    <color name="justCoal">#151617</color>
+
+    <color name="chipTextColor">#333333</color>
+    <color name="chipBackgroundColor">#f8f8f8</color>
+
+    <color name="chipBlack">#000000</color>
+    <color name="chipBlue">#009CE0</color>
+    <color name="chipGreen">#A4DD00</color>
+    <color name="chipMagenta">#7B64FF</color>
+    <color name="chipOrange">#FE9201</color>
+    <color name="chipPurple">#AB139E</color>
+    <color name="chipRed">#F44E3B</color>
+    <color name="chipTeal">#68CCCA</color>
+    <color name="chipWhite">#FFFFFF</color>
+    <color name="chipYellow">#FCDC00</color>
+
+    <color name="locationIconColor">#1f1f1f</color>
+    <color name="captionColor">#6D6D6D</color>
+    <color name="dividerColor">#c7c7c7</color>
+
+</resources>

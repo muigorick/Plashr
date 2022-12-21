@@ -1,0 +1,130 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+}
+
+def apiKeyPropertiesFile = rootProject.file("apikey.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.muigorick.plashr"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "ACCESS_KEY", apiKeyProperties['ACCESS_KEY'])
+        buildConfigField("String", "SECRET_KEY", apiKeyProperties['SECRET_KEY'])
+        buildConfigField("String", "REDIRECT_URI", apiKeyProperties['REDIRECT_URI'])
+
+        manifestPlaceholders = [appAuthRedirectScheme: "plashrapp://callback"]
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinStdlibJdk8Version"
+    implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:1.8.0-beta01"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKtxVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewmodelKtxVersion"
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportV4Version"
+    implementation "androidx.browser:browser:$browserVersion"
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+    /* Preference implementation */
+    implementation "androidx.preference:preference-ktx:$preferenceKtxVersion"
+
+    /* Glide Implementation */
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideCompilerVersion"
+
+    kapt "androidx.annotation:annotation:1.5.0"
+
+    /* Retrofit implementation */
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterGsonVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3LoggingInterceptorVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    /* CircleImageView implementation */
+    implementation "de.hdodenhof:circleimageview:$circleImageviewVersion"
+
+    /* Implementation of paging library into the app */
+    implementation "androidx.paging:paging-runtime-ktx:$pagingRuntimeKtxVersion"
+
+    // Hilt implementation
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    /*  Alternately - if using Java8, use the following instead of lifecycle-compiler */
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleCommonJava8Version"
+
+    /* Chris Banes PhotoView implementation */
+    implementation "com.github.chrisbanes:PhotoView:$photoViewVersion"
+
+    /*  Feature module Support
+    *
+    * Yet to know why I had this in the first place. Will uncomment it later on when I find use for it.
+    *
+    * */
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigationDynamicFeaturesFragmentVersion"
+
+
+    /* Add coroutines to the app */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutinesAndroidVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCoreVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit2KotlinCoroutinesAdapterVersion"
+
+    /*App Auth implementation*/
+    implementation "net.openid:appauth:$appAuthVersion"
+
+    // Datastore implementation
+    implementation "androidx.datastore:datastore-preferences:$datastorePreferencesVersion"
+
+    // Splashscreen API implementation
+    implementation "androidx.core:core-splashscreen:$core_splashscreen"
+
+    /* RecyclerView implementation */
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    /*Shimmer implementation*/
+    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+    
+    kapt 'org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0'
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package = "com.muigorick.plashr">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".utils.Plashr"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/Theme.Plashr"
+        tools:ignore="AllowBackup">
+        <activity
+            android:name=".ui.activities.mainActivity.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Plashr">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <nav-graph android:value="@navigation/home_tab" />
+        </activity>
+        <activity android:name=".ui.activities.collections.SingleCollectionDetailsActivity" />
+        <activity android:name=".ui.activities.photos.SinglePhotoFullViewActivity" />
+        <activity
+            android:name=".ui.activities.photos.SinglePhotoDetailsActivity"
+            android:exported="true">
+            <nav-graph android:value="@navigation/deep_link_graph" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="unsplash.com"
+                    android:pathPrefix="/photos"
+                    android:scheme="https" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.activities.profile.universalProfile.UserProfileActivity"
+            android:exported="true" />
+        <activity android:name=".ui.activities.profile.loggedUser.LoggedUserActivity" />
+        <activity android:name=".ui.activities.profile.loggedUser.EditProfileActivity" />
+        <activity android:name=".ui.activities.settings.SettingsActivity"
+            android:parentActivityName=".ui.activities.mainActivity.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.mainActivity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.activities.topics.SingleTopicDetailsActivity"
+            android:exported="true"/>
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback"
+                    android:scheme="plashrapp" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

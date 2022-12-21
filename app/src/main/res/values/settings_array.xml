@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="app_theme">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+    <string-array name="app_theme_values">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+    <string-array name="image_layout">
+        <item>List</item>
+        <item>Cards</item>
+        <item>Grid</item>
+    </string-array>
+    <string-array name="image_layout_values">
+        <item>List</item>
+        <item>Cards</item>
+        <item>Grid</item>
+    </string-array>
+    <string name="default_app_theme">Light</string>
+    <string name="default_image_layout">List</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Style for our custom Material 3 Bottom Navigation View. -->
+    <style name="Widget.Material3.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">
+            @style/Widget.Material3.BottomNavigationView.ActiveIndicator
+        </item>
+        <item name="itemTextAppearanceInactive">?attr/textAppearanceLabelMedium</item>
+        <item name="itemTextAppearanceActive">?attr/textAppearanceLabelMedium</item>
+        <item name="itemRippleColor">@null</item>
+        <item name="itemIconTint">@color/bottom_navigation_view_icon</item>
+        <item name="itemTextColor">@color/bottom_navigation_view_text</item>
+        <item name="itemPaddingTop">@dimen/m3_bottom_nav_item_padding_top</item>
+        <item name="itemPaddingBottom">@dimen/m3_bottom_nav_item_padding_bottom</item>
+        <item name="android:minHeight">@dimen/m3_bottom_nav_min_height</item>
+    </style>
+
+    <style name="Widget.Material3.BottomNavigationView.ActiveIndicator" parent="">
+        <item name="android:width">@dimen/m3_bottom_nav_item_active_indicator_width</item>
+        <item name="android:height">@dimen/m3_bottom_nav_item_active_indicator_height</item>
+        <item name="marginHorizontal">@dimen/m3_bottom_nav_item_active_indicator_margin_horizontal</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.NavigationBarView.ActiveIndicator</item>
+        <item name="android:color">@color/colorPrimary</item>
+    </style>
+
+    <style name="ShapeAppearance.CircleImageView" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!--Collapsing toolbar title text size when it is expanded -->
+    <style name="collapsingToolbarExpandedTitleAppearance">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+
+</resources>

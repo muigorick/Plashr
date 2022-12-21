@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_topics"
+    app:startDestination="@id/topics"
+    tools:ignore="UnusedNavigation">
+    <!--android:name="com.muigorick.plashr.ui.bottomNavigation.topics.TopicsFragment"-->
+    <fragment
+        android:id="@+id/topics"
+        android:label="@string/topics"
+        tools:layout="@layout/fragment_topics"
+        >
+
+        <!--<action
+            android:id="@+id/action_topics_to_singleTopicActivity"
+            app:destination="@id/singleTopicActivity" />-->
+    </fragment>
+    <activity
+        android:id="@+id/singleTopicActivity"
+        android:name="com.muigorick.plashr.ui.activities.topics.SingleTopicDetailsActivity"
+        android:label="activity_single_topic"
+        tools:layout="@layout/activity_single_topic"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right">
+        <argument
+            android:name="Topic"
+            android:defaultValue="@null"
+            app:argType="com.muigorick.plashr.dataModels.topics.Topic"
+            app:nullable="true" />
+    </activity>
+
+
+</navigation>
