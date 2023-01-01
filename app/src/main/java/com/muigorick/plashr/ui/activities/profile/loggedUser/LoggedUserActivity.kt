@@ -13,6 +13,6 @@ class LoggedUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logged_user)
 
-        viewModel = ViewModelProvider(this).get(LoggedUserActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this)[LoggedUserActivityViewModel::class.java]
     }
 }

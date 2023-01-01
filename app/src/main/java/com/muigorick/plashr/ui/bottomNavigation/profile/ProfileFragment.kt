@@ -115,9 +115,9 @@ class ProfileFragment : Fragment() {
             binding.notSignedInLayout.root.visibility = View.GONE
         } else {
             binding.notSignedInLayout.root.visibility = View.VISIBLE
-            /* binding.notSignedInLayout.loginButton.setOnClickListener {
+             binding.notSignedInLayout.loginButton.setOnClickListener {
                  openSignInWebPage()
-             }*/
+             }
             binding.notSignedInLayout.registerNowButton.setOnClickListener {
                 openRegisterNowWebPage()
             }
@@ -127,7 +127,7 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner
         ) { fetchStatus ->
             if (fetchStatus) {
-                //getLoggedUserProfile()
+                getLoggedUserProfile()
             }
         }
 
@@ -244,7 +244,6 @@ class ProfileFragment : Fragment() {
      */
     private fun restartApp() {
         profileFragmentViewModel.message(getString(R.string.fetching_user_public_profile_message))
-
         val i: Intent =
             requireActivity().baseContext.packageManager.getLaunchIntentForPackage(requireActivity().baseContext.packageName)!!
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
