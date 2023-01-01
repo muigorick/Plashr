@@ -98,8 +98,8 @@ dependencies {
     /* Chris Banes PhotoView implementation */
     implementation "com.github.chrisbanes:PhotoView:$photoViewVersion"
 
-    /*  Feature module Support
-    *
+    /*
+    * Feature module Support
     * Yet to know why I had this in the first place. Will uncomment it later on when I find use for it.
     *
     * */
