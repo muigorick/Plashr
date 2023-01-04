@@ -4,18 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.IntegerRes
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.muigorick.plashr.R
 import com.muigorick.plashr.adapters.LoadStateAdapter
@@ -31,15 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-/*
-TODO Implement nested scrollview for the 2 categories: Topics and photos. PS: Look into incorporating the filter
-     function for the photos based on what the user wants to see.
-     1. If it causes bugs in the way the recyclerview is handled especially when it comes to scrolling, please find a way to nest the two
-        different layouts in one rather than having a recyclerview to hold both. --- Solution 1 (FAILED)=> Setting different viewtypes doesn't work because of paging.
-*/
-
 @AndroidEntryPoint
-class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListener,*/
+class HomeFragment : Fragment(),
     PhotoRecyclerViewAdapter.OnPhotoClickListener {
 
     companion object {
@@ -48,14 +40,10 @@ class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListene
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var layoutManager: LayoutManager? = null
-    // private var columnCount:Int?=null
 
-    //private val topicsFragmentViewModel: TopicsFragmentViewModel by viewModels()
     private val editorialPhotosFragmentViewModel: EditorialPhotosFragmentViewModel by viewModels()
     private lateinit var settingsViewModel: SettingsViewModel
 
-    // private lateinit var topicsAdapter: TopicsRecyclerViewAdapter
     private lateinit var photosAdapter: PhotoRecyclerViewAdapter
 
     override fun onCreateView(
@@ -63,7 +51,6 @@ class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListene
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -89,34 +76,11 @@ class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //  topicsAdapter = TopicsRecyclerViewAdapter(this)
         photosAdapter = PhotoRecyclerViewAdapter(this, SharedPreferences(requireActivity()))
         settingsViewModel = ViewModelProvider(requireActivity())[SettingsViewModel::class.java]
 
-        // setupTopics()
         setupPhotos()
     }
-
-    /*  */
-    /**
-     * Sets up the topics and initializes the respective recyclerview to be viewed on the Home Fragment.
-     *
-     *//*
-    private fun setupTopics() {
-
-        binding.apply {
-            topicsRecyclerView.itemAnimator = null
-            topicsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            topicsRecyclerView.adapter = topicsAdapter.withLoadStateHeaderAndFooter(
-                header = LoadStateAdapter { topicsAdapter.retry() },
-                footer = LoadStateAdapter { topicsAdapter.retry() }
-            )
-        }
-
-        topicsFragmentViewModel.topics.observe(viewLifecycleOwner) { topics ->
-            topicsAdapter.submitData(lifecycle = viewLifecycleOwner.lifecycle, pagingData = topics)
-        }
-    }*/
 
     /**
      * Sets up the photos and initializes the respective recyclerview to be viewed on the Home Fragment.
@@ -154,8 +118,6 @@ class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListene
                 }
             }
 
-            /* homePhotosRecyclerView.layoutManager =layoutManager*/
-
             loadingErrorLayout.retryTxtBtn.setOnClickListener {
                 photosAdapter.retry()
             }
@@ -172,30 +134,6 @@ class HomeFragment : Fragment(), /*TopicsRecyclerViewAdapter.OnTopicClickListene
         super.onDestroyView()
         _binding = null
     }
-
-    /* */
-    /**
-     * Navigates us to the [com.muigorick.plashr.ui.activities.topics.SingleTopicDetailsActivity] where the user can view more details about the topic they've chosen.
-     * @param topic Topic a user wants to see more details of.
-     *//*
-    override fun onTopicClick(topic: Topic) {
-        val bundle = bundleOf("topic" to topic)
-        findNavController().navigate(R.id.action_HomeFragment_to_SingleTopicDetailsActivity, bundle)
-    }*/
-/*
-
-    */
-
-    /**
-     * Show's a bottom sheet that has the topics preview photos and a few topic details.
-     * TODO Design and implement the bottom sheet.
-     * @param topic Topic a user wants to see more details of.
-     *//*
-
-    override fun onTopicLongClick(topic: Topic) {
-        Toast.makeText(requireContext(), "TOPIC CLICKED : ON LONG CLICK", Toast.LENGTH_SHORT).show()
-    }
-*/
 
     /**
      * Navigates us to the [SinglePhotoDetailsActivity] where the user can view more details about the photo.
