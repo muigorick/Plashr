@@ -9,8 +9,7 @@ class ProfileFragmentViewModel : ViewModel() {
     val loggedUserPublicProfileFetched = MutableLiveData<Boolean>()
     val restartApp = MutableLiveData<Boolean>()
     val message = MutableLiveData<String>()
-
-    //val displayBottomFragment;
+    val displayNotLoggedInLayout = MutableLiveData<Boolean>()
 
     fun loggedUserProfileFetched(fetchStatus: Boolean) {
         loggedUserProfileFetched.value = fetchStatus
@@ -31,4 +30,9 @@ class ProfileFragmentViewModel : ViewModel() {
     fun message(loginBottomSheetMessage: String) {
         message.value = loginBottomSheetMessage
     }
+
+    fun displayNotLoggedInLayout(loginStatus:Boolean){
+        displayNotLoggedInLayout.value = loginStatus
+    }
+
 }
