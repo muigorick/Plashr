@@ -7,7 +7,6 @@
     <string name="search">Search</string>
     <string name="collections">Collections</string>
     <string name="profile">Profile</string>
-    <string name="topics">Topics</string>
     <string name="editorial">Editorial</string>
 
     <!--User-->
@@ -120,16 +119,6 @@
     <string name="location">Location</string>
     <string name="instagram_username">Instagram Username</string>
 
-    <!--Topic-->
-    <string name="owners">Owners</string>
-    <string name="top_contributors">Top Contributors</string>
-
-    <!--Topic(s)-->
-    <plurals name="topic_photo_count">
-        <item quantity="one">Topic • %s photo</item>
-        <item quantity="other">Topic • %s photos</item>
-    </plurals>
-
     <!--Collection(s)-->
     <plurals name="collection_photo_count">
         <item quantity="one">Collection • %s photo</item>
@@ -143,7 +132,6 @@
     </plurals>
 
     <!--Views descriptions-->
-    <string name="topic_cover_photo">Topic Cover Photo</string>
     <string name="collection_cover_photo">Collection Cover Photo</string>
     <string name="likePhotoButtonDescription">Like Photo Button</string>
     <string name="collectPhotoButtonDescription">Collect Photo Button</string>
@@ -172,7 +160,6 @@
 
     <string name="it_s_a_bit_empty_here">It\'s a bit empty here.</string>
     <string name="photo_count">%s Photos</string>
-    <string name="topic_count">Topic • %s photos</string>
     <string name="view_on_unsplash">View on\nUnsplash</string>
     <string name="like">Like</string>
     <string name="download">Download</string>
