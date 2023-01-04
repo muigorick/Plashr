@@ -172,7 +172,6 @@ class AccountManager : Application() {
         editor.commit()
     }
 
-
     /**
      * Gets the user's first name.
      *
@@ -198,8 +197,7 @@ class AccountManager : Application() {
      */
     fun getName(): String {
         return sharedPreferences.getString(keyFirstName, null) + " " + sharedPreferences.getString(
-            keyLastName,
-            null
+            keyLastName, null
         )
     }
 
@@ -212,7 +210,6 @@ class AccountManager : Application() {
         editor.putString(keyUserProfilePicURL, profilePictureURL)
         editor.commit()
     }
-
 
     /**
      * Standalone method that adds the user's PROFILE_PICTURE_URL once they log in.

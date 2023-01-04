@@ -10,15 +10,15 @@ import okhttp3.Response
 class AuthenticationInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request
-        if (AccountManager().getInstance()?.isAppAuthorized() == true) {
+        val accountManager =  AccountManager().getInstance()!!
+        if (accountManager.isAppAuthorized()) {
             request = chain.request().newBuilder().addHeader(
                 "Authorization",
-                "Bearer" + AccountManager().getInstance()?.getAccessToken()
-            )
-                .build()
+                "Bearer ${accountManager.getAccessToken()}"
+            ).build()
             Log.i(
                 "Interceptor ",
-                " Authorization bearer: Token bearer call made"
+                "Authorization bearer: Token bearer call made."
             )
 
         } else {
@@ -28,7 +28,7 @@ class AuthenticationInterceptor : Interceptor {
                 .build()
             Log.i(
                 "Interceptor ",
-                "Authorization client ID: client ID call made"
+                "Authorization client ID: client ID call made."
             )
         }
 

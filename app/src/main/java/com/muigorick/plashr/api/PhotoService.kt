@@ -1,6 +1,5 @@
 package com.muigorick.plashr.api
 
-import com.muigorick.plashr.dataModels.collections.Collection
 import com.muigorick.plashr.dataModels.photos.Photo
 import retrofit2.Call
 import retrofit2.http.*
@@ -18,7 +17,7 @@ interface PhotoService {
     ): Call<Photo>
 
     /**
-     * Gets a list of the editorial photos. To be specific, these are the photos that you see on the unsplash website homepage.
+     * Gets a list of the editorial photos.
      *
      * @return A list of all editorial photos.
      */
@@ -30,25 +29,25 @@ interface PhotoService {
     ): List<Photo>
 
     /**
-     * Adds a photo to the user's chosen collection
+     * Gets a random photo.
      *
-     * @return an updated version of the collection into which the user added the photo.
+     * @return A random photo.
      */
-    @POST("collections/{collection_id}/add")
-    suspend fun addPhotoToCollections(
-        @Path("collection_id") collectionId: String,
-        @Query("photo_id") photoId: String
-    ): Collection
+    @GET("photos/random")
+    fun getRandomPhoto(
+        @Query("orientation") orientation: String
+    ): Call<Photo>
+
 
     /**
-     * Deletes a photo to the user's chosen collection
+     * Gets a photo using the ID.
      *
-     * @return an updated version of the collection into which the user removed the photo.
+     * @return A photo model call.
      */
-    @DELETE("collections/{collection_id}/remove")
-    suspend fun removePhotoFromCollections(
-        @Path("collection_id") collectionId: String,
-        @Query("photo_id") photoId: String
-    ): Collection
-
+    @GET("photos/{id}/statistics")
+    fun getPhotoStatistics(
+        @Path("id") id: String,
+        @Query("resolution") resolution: String,
+        @Query("quantity") quantity: Int
+    ): Call<Photo>
 }

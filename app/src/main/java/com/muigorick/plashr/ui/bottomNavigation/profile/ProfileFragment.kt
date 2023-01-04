@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
             binding.loggingInLayout.root.visibility = View.VISIBLE
             requestAccessToken(code)
         } else {
-
+            //TODO Notify the user that it failed.
         }
     }
 
@@ -115,9 +115,9 @@ class ProfileFragment : Fragment() {
             binding.notSignedInLayout.root.visibility = View.GONE
         } else {
             binding.notSignedInLayout.root.visibility = View.VISIBLE
-            /* binding.notSignedInLayout.loginButton.setOnClickListener {
-                 openSignInWebPage()
-             }*/
+            binding.notSignedInLayout.loginButton.setOnClickListener {
+                openSignInWebPage()
+            }
             binding.notSignedInLayout.registerNowButton.setOnClickListener {
                 openRegisterNowWebPage()
             }
@@ -127,7 +127,7 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner
         ) { fetchStatus ->
             if (fetchStatus) {
-                //getLoggedUserProfile()
+                getLoggedUserProfile()
             }
         }
 
@@ -135,7 +135,10 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner
         ) { fetchStatus ->
             if (fetchStatus) {
-                // getLoggedUserPublicProfile(AccountManager().getUsername()!!)
+                if (AccountManager().getUsername() != null) {
+                    getLoggedUserPublicProfile(AccountManager().getUsername()!!)
+                    profileFragmentViewModel.restartApp.value = true
+                }
             }
         }
 
@@ -143,7 +146,6 @@ class ProfileFragment : Fragment() {
             viewLifecycleOwner
         ) { fetchStatus ->
             if (fetchStatus) profileFragmentViewModel.restartApp(true)
-
         }
 
         profileFragmentViewModel.restartApp.observe(
@@ -159,7 +161,6 @@ class ProfileFragment : Fragment() {
             binding.loggingInLayout.loginStatusDescription.text = message
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -239,12 +240,10 @@ class ProfileFragment : Fragment() {
     }
 
     /**
-     * Used to restart the app after the user is logged in so that we may be able to
-     * make use of the user public functions in unsplash eg. liking pictures,creating collections etc,
+     * Restarts the app after the user is logged in.
      */
     private fun restartApp() {
         profileFragmentViewModel.message(getString(R.string.fetching_user_public_profile_message))
-
         val i: Intent =
             requireActivity().baseContext.packageManager.getLaunchIntentForPackage(requireActivity().baseContext.packageName)!!
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -298,5 +297,4 @@ class ProfileFragment : Fragment() {
             }
         })
     }
-
 }
