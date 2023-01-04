@@ -22,6 +22,7 @@ import com.muigorick.plashr.adapters.PhotoRecyclerViewAdapter
 import com.muigorick.plashr.dataModels.photos.Photo
 import com.muigorick.plashr.databinding.FragmentHomeBinding
 import com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity
+import com.muigorick.plashr.ui.activities.profile.universalProfile.UserProfileActivity
 import com.muigorick.plashr.ui.activities.settings.SettingsActivity
 import com.muigorick.plashr.ui.activities.settings.SettingsViewModel
 import com.muigorick.plashr.ui.bottomNavigation.home.editorialPhotos.EditorialPhotosFragmentViewModel
@@ -55,12 +56,10 @@ class HomeFragment : Fragment(),
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.home_fragment_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
                 return when (menuItem.itemId) {
                     R.id.settings -> {
                         startActivity(Intent(requireActivity(), SettingsActivity::class.java))
@@ -145,7 +144,7 @@ class HomeFragment : Fragment(),
     }
 
     /**
-     * Navigates us to the [] where the user can view the photo owner's profile..
+     * Navigates us to the [UserProfileActivity] where the user can view the photo owner's profile..
      * @param photo Photo a user wants to see the owner's profile.
      */
     override fun onPhotoOwnerClick(photo: Photo) {

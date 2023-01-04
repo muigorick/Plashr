@@ -56,11 +56,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTopicsDataService(retrofit: Retrofit): TopicsService =
-        retrofit.create(TopicsService::class.java)
-
-    @Provides
-    @Singleton
     fun provideUserDataService(retrofit: Retrofit): UserService =
         retrofit.create(UserService::class.java)
 
