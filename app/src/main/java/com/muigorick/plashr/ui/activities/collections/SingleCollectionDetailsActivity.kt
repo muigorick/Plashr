@@ -5,14 +5,16 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.muigorick.plashr.R
 import com.muigorick.plashr.actions.CollectionActions
 import com.muigorick.plashr.adapters.PhotoRecyclerViewAdapter
@@ -25,7 +27,6 @@ import com.muigorick.plashr.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import kotlin.math.abs
-
 
 @AndroidEntryPoint
 class SingleCollectionDetailsActivity : AppCompatActivity(),
@@ -85,10 +86,10 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.singleCollectionActivityToolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
-        binding.appBarLayout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 // Collapsed
                 binding.singleCollectionActivityToolbar.title =
@@ -98,7 +99,7 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
                 binding.singleCollectionActivityToolbar.title = null
                 binding.collapsingToolbar.title = null
             }
-        })
+        }
     }
 
     /**
@@ -128,7 +129,6 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
 
     /**
      * Sets up the collection observers.
-     *
      */
     private fun setCollectionObservers() {
         viewModel.getCollectionID().observe(this) {
@@ -207,9 +207,6 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
 
     override fun onPhotoClick(photo: Photo) {
         Log.i("Collection Photo", "onPhotoClick: $photo ")
-        /*val intent = Intent(this@SingleCollectionDetailsActivity, SinglePhotoDetailsActivity::class.java)
-        intent.putExtra("photo_model", photo as Parcelable)
-        this.startActivity(intent)*/
         val intent = Intent(
             this@SingleCollectionDetailsActivity,
             SinglePhotoDetailsActivity::class.java

@@ -9,56 +9,6 @@
     android:scrollbars="none"
     tools:context=".ui.bottomNavigation.home.HomeFragment">
 
-<!--
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/topicsHeaderTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/topics"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topicsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topicsHeaderTxt"
-        android:layout_marginTop="10dp"
-        android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="0dp"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topicsHeaderTxt" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/editorialHeaderTxt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topicsRecyclerView"
-        android:layout_marginTop="10dp"
-        android:text="@string/editorial"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        app:layout_constraintEnd_toEndOf="@+id/topicsHeaderTxt"
-        app:layout_constraintStart_toStartOf="@+id/topicsHeaderTxt"
-        app:layout_constraintTop_toBottomOf="@+id/topicsRecyclerView" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homePhotosRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/editorialHeaderTxt"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editorialHeaderTxt" />-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homePhotosRecyclerView"
         android:layout_width="match_parent"

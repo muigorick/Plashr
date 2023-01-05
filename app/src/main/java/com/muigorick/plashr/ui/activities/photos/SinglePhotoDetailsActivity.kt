@@ -1,21 +1,14 @@
 package com.muigorick.plashr.ui.activities.photos
 
-import android.app.DownloadManager
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
-import android.view.*
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.muigorick.plashr.R
 import com.muigorick.plashr.account.AccountManager
 import com.muigorick.plashr.actions.PhotoActions
@@ -25,11 +18,9 @@ import com.muigorick.plashr.dataModels.photos.PhotoTags
 import com.muigorick.plashr.databinding.ActivitySinglePhotoDetailsBinding
 import com.muigorick.plashr.network.AppModule
 import com.muigorick.plashr.utils.Utils
-import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 
 class SinglePhotoDetailsActivity : AppCompatActivity(),
@@ -253,30 +244,13 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
         }
 
         viewModel.getPhotoLikeCount().observe(this) {
-            if (it != null) {
-                //  binding..text = it
-            }
+
         }
 
         //Handle the user liking the photo here
         //TODO update the drawable here. Probably change the fill color or better yet have two drawables where one reflects the color filled version.
         viewModel.getPhotoLikedByUser().observe(this) {
-            /* if (it != null) {
-             if (it != false)
-                 binding.likeImageButton.drawable.setTint(
-                     ContextCompat.getColor(
-                         this,
-                         R.color.likedImageBtnColor
-                     )
-                 )
-             else
-                 binding.likeImageButton.drawable.setTint(
-                     ContextCompat.getColor(
-                         this,
-                         R.color.likedImageBtnColor
-                     )
-                 ) //update this
-         }*/
+
         }
 
         viewModel.getPhotoCameraMake().observe(this) {
@@ -364,7 +338,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.singleImageDetailsToolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -419,101 +393,4 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
         Toast.makeText(this, "${photoTag.title}", Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     *  Hides the System UI. In this case, this is the status bar and the navigation bar.
-     *  To call the system UI, you just swipe and it auto hides after a while.
-     *  This uses an if statement that implements this feature based on the android version.
-     */
-    private fun hideSystemUI() {
-        // For ANDROID R and later
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(
-                WindowInsets.Type.statusBars().and(WindowInsets.Type.navigationBars())
-            )
-        } else {
-            // For versions under ANDROID R.
-            @Suppress("DEPRECATION")
-            // Enables regular immersive mode.
-            // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-            // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            // Set the content to appear under the system bars so that the
-                            // content doesn't resize when the system bars hide and show.
-                            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            // Hide the nav bar and status bar
-                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        }
-    }
 }
-
-/*
-This method can be used to download an image from the internet using a url in Android. This use Android Download Manager to
-download the file and added it to the Gallery. Downloaded image will be saved to "Pictures"
-Folder in your internal storage
-*/
-/*private fun downloadImageNew(filename: String, downloadUrlOfImage: String) {
-    try {
-        val dm = ContextCompat.getSystemService(this@SinglePhotoDetailsActivity, Context.DOWNLOAD_SERVICE) as DownloadManager?
-        val downloadUri = Uri.parse(downloadUrlOfImage)
-        val request = DownloadManager.Request(downloadUri)
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-            .setAllowedOverRoaming(false)
-            .setTitle(filename)
-            .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationInExternalPublicDir(
-                Environment.DIRECTORY_PICTURES,
-                File.separator + filename + ".jpg"
-            )
-        dm!!.enqueue(request)
-        Toast.makeText( this,"Image download started.", Toast.LENGTH_SHORT).show()
-    } catch (e: Exception) {
-        Toast.makeText(this,"Image download failed.", Toast.LENGTH_SHORT).show()
-    }
-}*/
-
-
-/*
-This method can be used to download an image from the internet using a url in Android. This use Android Download Manager to
-download the file and added it to the Gallery. Downloaded image will be saved to "Pictures"
-Folder in your internal storage
-*/
-
-/*
-This method can be used to download an image from the internet using a url in Android. This use Android Download Manager to
-download the file and added it to the Gallery. Downloaded image will be saved to "Pictures"
-Folder in your internal storage
-*/
-private fun downloadImage(filename: String, downloadUrlOfImage: String, context: Context) {
-
-    try {
-
-        val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
-        val downloadUri = Uri.parse(downloadUrlOfImage)
-        val request = DownloadManager.Request(downloadUri)
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-            .setAllowedOverRoaming(false)
-            .setTitle(filename)
-            .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationInExternalPublicDir(
-                Environment.DIRECTORY_PICTURES,
-                File.separator + filename + ".jpg"
-            )
-        dm!!.enqueue(request)
-        Toast.makeText(context, "Image download started.", Toast.LENGTH_SHORT).show()
-    } catch (e: java.lang.Exception) {
-        Toast.makeText(context, "Image download failed.", Toast.LENGTH_SHORT).show()
-    }
-}
-
-
-
-
-
-
-
