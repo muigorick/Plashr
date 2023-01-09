@@ -1,34 +1,48 @@
 package com.muigorick.plashr.actions
 
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
-import androidx.core.text.HtmlCompat
 import com.muigorick.plashr.R
+import com.muigorick.plashr.actions.PhotoActions.OnPhotoActionsListener
 import com.muigorick.plashr.dataModels.photos.Photo
+import com.muigorick.plashr.network.AppModule
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class PhotoActions(private val context: Context,private val photo: Photo) {
+/**
+ * Class to photo actions. It allows the user to share photos, add & remove photos to and from collections,
+ * download, like and unlike photos.
+ * @param context Context needed to carry out actions that require context.
+ * @param listener Listener that triggers the [OnPhotoActionsListener] interface whenever selected actions
+ *([sharePhoto]) succeed or fail.
+ */
+class PhotoActions(
+    private val context: Context,
+    private val photo: Photo,
+    private val listener: OnPhotoActionsListener
+) {
+
+    private val dataService =
+        AppModule.providePhotoDataService(retrofit = AppModule.provideRetrofit())
 
     /**
      * Image Sharing through intent.
      */
-     fun sharePhoto() {
+    fun sharePhoto() {
         val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        sendIntent.type = "text/plain"
-        sendIntent.putExtra(
-            Intent.EXTRA_TEXT,
-            context.getString(
-                R.string.share_photo_intent_message,
-                HtmlCompat.fromHtml(
-                    (context.getString(
-                        R.string.user_share_name_link,
-                        photo.user?.username,
-                        photo.user?.username
-                    )), HtmlCompat.FROM_HTML_MODE_LEGACY
-                ), photo.links?.html
+        sendIntent.apply {
+            action = Intent.ACTION_SEND
+            type = "text/plain"
+            putExtra(
+                Intent.EXTRA_TEXT,
+                context.getString(
+                    R.string.share_photo_intent_message,
+                    photo.user?.username,
+                    photo.attributionUrl
+                )
             )
-        )
+        }
         val shareIntent = Intent.createChooser(sendIntent, "Share image")
         context.startActivity(shareIntent)
     }
@@ -36,36 +50,65 @@ class PhotoActions(private val context: Context,private val photo: Photo) {
     /**
      * Adds a selected photo to collection.
      */
-    fun addPhotoToCollection(){
+    fun addPhotoToCollection() {
 
     }
 
     /**
      * Remove a selected photo from collection.
      */
-    fun removePhotoFromCollection(){
+    fun removePhotoFromCollection() {
 
     }
 
-   /**
+    /**
      *  Download a selected photo.
      */
-    fun downloadPhoto(download_manager: DownloadManager, context: Context) {
-
+    fun downloadPhoto() {
 
     }
 
     /**
      * Like a selected photo.
      */
-    fun likePhoto(){
+    fun likePhoto() {
+        val likePhotoCall = dataService.likePhoto(photo.id!!)
+        likePhotoCall.enqueue(object : Callback<Photo?> {
+            override fun onResponse(call: Call<Photo?>, response: Response<Photo?>) {
+                listener.onPhotoLikeSuccess()
+            }
 
+            override fun onFailure(call: Call<Photo?>, t: Throwable) {
+                listener.onPhotoLikeFailure()
+            }
+        })
     }
 
     /**
-     * Dislike a selected photo.
+     * Unlike a selected photo.
      */
-    fun dislikePhoto(){
+    fun unlikePhoto() {
+        val unlikePhotoCall = dataService.unlikePhoto(photo.id!!)
+        unlikePhotoCall.enqueue(object : Callback<Photo?> {
+            override fun onResponse(call: Call<Photo?>, response: Response<Photo?>) {
+                listener.onPhotoUnlikeSuccess()
+            }
 
+            override fun onFailure(call: Call<Photo?>, t: Throwable) {
+                listener.onPhotoUnlikeFailure()
+            }
+        })
+    }
+
+    /**
+     * Photo actions listener interface.
+     */
+    interface OnPhotoActionsListener {
+        fun onPhotoLikeSuccess()
+        fun onPhotoLikeFailure()
+        fun onPhotoUnlikeSuccess()
+        fun onPhotoUnlikeFailure()
+        fun onPhotoDownloadSuccess()
+        fun onPhotoDownloadFailure()
     }
 }

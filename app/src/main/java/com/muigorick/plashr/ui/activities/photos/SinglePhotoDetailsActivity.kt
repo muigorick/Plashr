@@ -22,9 +22,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class SinglePhotoDetailsActivity : AppCompatActivity(),
-    PhotoTagsRecyclerViewAdapter.OnPhotoTagClickListener {
+    PhotoTagsRecyclerViewAdapter.OnPhotoTagClickListener, PhotoActions.OnPhotoActionsListener {
 
     private lateinit var binding: ActivitySinglePhotoDetailsBinding
     private val viewModel: SinglePhotoDetailsActivityViewModel by viewModels()
@@ -32,12 +31,10 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySinglePhotoDetailsBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
         initToolbar()
         if (intent?.extras != null) {
-
-
             Log.i("SINGLE PHOTO DETAILS", "onNewIntent: ${intent.data}")
 
             val photo = if (Build.VERSION.SDK_INT >= 33) {
@@ -70,7 +67,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
                     photoLocation = null
                 )
                 photo.id?.let { getPhotoDetails(photoID = it) }
-                viewModel.setPhotoLoaded(loaded = false)
+                viewModel.photoLoaded.value = false
             }
         } else {
             getPhotoDetails(
@@ -82,7 +79,6 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
 
         setOnClickListeners()
         setObservers()
-
     }
 
     /**
@@ -99,70 +95,71 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
      */
     private fun setOnClickListeners() {
         binding.imageView.setOnClickListener {
-            if (viewModel.getPhoto().value != null) {
+            if (viewModel.photo.value != null) {
                 Log.i("PHOTO ON CLICK", "photo is not null")
-                viewModel.getPhoto().value?.let { photo -> navigateToSinglePhotoFullView(photo = photo) }
+                viewModel.photo.value?.let { photo -> navigateToSinglePhotoFullView(photo = photo) }
             } else {
                 Log.i("PHOTO ON CLICK", "photo is null")
             }
         }
+
         binding.likeButton.setOnClickListener {
-            if (AccountManager().isAppAuthorized()) (
-                    Toast.makeText(
-                        this,
-                        "LIKE IMAGE BUTTON CLICKED. USER AUTHORIZED",
-                        Toast.LENGTH_SHORT
-                    ).show())
-            else (
-                    Toast.makeText(
-                        this,
-                        "LIKE IMAGE BUTTON CLICKED. USER NOT AUTHORIZED",
-                        Toast.LENGTH_SHORT
-                    ).show())
-        }
+            if (AccountManager().isAppAuthorized()) {
+                when (viewModel.photo.value?.likedByUser) {
+                    false -> {
+                        PhotoActions(this, viewModel.photo.value!!, this).likePhoto()
+                    }
+                    true -> {
+                        PhotoActions(this, viewModel.photo.value!!, this).unlikePhoto()
+                    }
+                    else -> {}
+                }
 
-        binding.collectButton.setOnClickListener {
-            if (AccountManager().isAppAuthorized()) (
-                    Toast.makeText(
-                        this,
-                        "COLLECT IMAGE BUTTON CLICKED. USER AUTHORIZED",
-                        Toast.LENGTH_SHORT
-                    ).show())
-            else (
-                    Toast.makeText(
-                        this,
-                        "COLLECT IMAGE BUTTON CLICKED. USER NOT AUTHORIZED",
-                        Toast.LENGTH_SHORT
-                    ).show())
-        }
-
-        binding.downloadButton.setOnClickListener {
-            /* viewModel.getPhoto().value?.links?.downloadLink?.let { downloadLink ->
-                 downloadImage("${viewModel.getPhoto().value!!.user!!.username}-${viewModel.getPhoto().value!!.id}",
-                     downloadLink, this
-                 )
-             }*/
-            Toast.makeText(this, "DOWNLOAD BUTTON CLICKED", Toast.LENGTH_SHORT).show()
-
-        }
-
-
-        binding.viewOnUnsplashButton.setOnClickListener {
-            if (viewModel.getPhoto().value?.attributionUrl != null) {
-                Utils(this@SinglePhotoDetailsActivity).openWebPage(
-                    url = viewModel.getPhoto().value!!.attributionUrl,
-                    packageManager = packageManager
-                )
-                //openWebPage(viewModel.getPhoto().value!!.attributionUrl)
+            } else {
+                Toast.makeText(
+                    this,
+                    "LIKE IMAGE BUTTON CLICKED. USER NOT AUTHORIZED",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        /*
-        * Shares the image
-        */
+        // Collects the photo to the users desired collection
+        binding.collectButton.setOnClickListener {
+            if (AccountManager().isAppAuthorized()) {
+                Toast.makeText(
+                    this,
+                    "COLLECT IMAGE BUTTON CLICKED. USER AUTHORIZED",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "COLLECT IMAGE BUTTON CLICKED. USER NOT AUTHORIZED",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        // Downloads the photo
+        binding.downloadButton.setOnClickListener {
+            Toast.makeText(this, "DOWNLOAD BUTTON CLICKED", Toast.LENGTH_SHORT).show()
+        }
+
+        // View the photo on Unsplash
+        binding.viewOnUnsplashButton.setOnClickListener {
+            if (viewModel.photo.value?.attributionUrl != null) {
+                Utils(this@SinglePhotoDetailsActivity).openWebPage(
+                    url = viewModel.photo.value!!.attributionUrl,
+                    packageManager = packageManager
+                )
+            }
+        }
+
+        // Shares the photo
         binding.shareButton.setOnClickListener {
-            if (viewModel.getPhoto().value != null) {
-                PhotoActions(this, viewModel.getPhoto().value!!).sharePhoto()
+            if (viewModel.photo.value != null) {
+                PhotoActions(this, viewModel.photo.value!!, this).sharePhoto()
             }
         }
 
@@ -173,39 +170,48 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
      *
      */
     private fun setObservers() {
-        viewModel.getPhotoDimensions().observe(this) {
+        viewModel.photo.observe(this) { photo ->
+            viewModel.setPhotoDetails(
+                photoId = photo.id,
+                photoURL = photo.urls?.regular,
+                photoDimensions = "${photo.width} x ${photo.height}",
+                photoDescription = photo.description,
+                photoOwnerFullName = photo.user?.name,
+                photoOwnerUsername = photo.user?.username,
+                photoOwnerProfilePic = photo.user?.profileImage?.medium,
+                photoDateCreated = photo.dateUploaded,
+                photoLikeCount = photo.likes,
+                photoLikedByUser = photo.likedByUser,
+                photoCameraMake = photo.exif?.make,
+                photoCameraModel = photo.exif?.model,
+                photoCameraExposure = photo.exif?.exposure_time,
+                photoCameraAperture = photo.exif?.aperture,
+                photoCameraFocalLength = photo.exif?.focal_length,
+                photoCameraISO = photo.exif?.iso,
+                photoLocation = photo.location?.formattedLocation
+            )
+        }
+        viewModel.photoDimensions.observe(this) {
             if (it != null) {
                 binding.dimensionsTxt.text = it
             }
         }
 
-        /* viewModel.getPhotoURL().observe(this, { photoURL ->
-         if (photoURL != null) {
-             Glide.with(this)
-                 .load(photoURL)
-                 .placeholder(viewModel.getPhoto().value?.photoColor)
-                 .into(binding.imageView)
-             //viewModel.setPhotoLoaded(loaded = true)
-         }
-     })*/
-
-
-        viewModel.getPhotoURL().observe(this) { photoURL ->
+        viewModel.photoURL.observe(this) { photoURL ->
             if (photoURL != null) {
-                viewModel.getPhotoLoaded().observe(this) { photoIsLoaded ->
+                viewModel.photoLoaded.observe(this) { photoIsLoaded ->
                     if (photoIsLoaded == false) {
                         Glide.with(this@SinglePhotoDetailsActivity)
                             .load(photoURL)
-                            .placeholder(viewModel.getPhoto().value?.photoColor)
+                            .placeholder(viewModel.photo.value?.photoColor)
                             .into(binding.imageView)
-                        viewModel.setPhotoLoaded(loaded = true)
+                        viewModel.photoLoaded.value = true
                     }
                 }
-
             }
         }
 
-        viewModel.getPhotoDescription().observe(this) {
+        viewModel.photoDescription.observe(this) {
             when (it) {
                 null -> {
                     binding.descriptionTxt.visibility = View.GONE
@@ -217,19 +223,19 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoOwnerFullName().observe(this) {
+        viewModel.photoOwnerFullName.observe(this) {
             if (it != null) {
                 binding.userFullNameTxt.text = it
             }
         }
 
-        viewModel.getPhotoOwnerUsername().observe(this) {
+        viewModel.photoOwnerUsername.observe(this) {
             if (it != null) {
                 binding.userNameTxt.text = getString(R.string.username, it)
             }
         }
 
-        viewModel.getPhotoOwnerProfilePic().observe(this) {
+        viewModel.photoOwnerProfilePic.observe(this) {
             if (it != null) {
                 Glide.with(this@SinglePhotoDetailsActivity)
                     .load(it)
@@ -237,23 +243,32 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoDateCreated().observe(this) { date ->
+        viewModel.photoDateCreated.observe(this) { date ->
             if (date != null) {
                 binding.publishedDateTxt.text = getString(R.string.publish_date, date)
             }
         }
 
-        viewModel.getPhotoLikeCount().observe(this) {
+        viewModel.photoLikeCount.observe(this) {
 
         }
 
-        //Handle the user liking the photo here
-        //TODO update the drawable here. Probably change the fill color or better yet have two drawables where one reflects the color filled version.
-        viewModel.getPhotoLikedByUser().observe(this) {
-
+        viewModel.photoLikedByUser.observe(this) { liked ->
+            when (liked) {
+                true -> {
+                    binding.likePhotoIconImageView.apply {
+                        setImageResource(R.drawable.ic_like_filled_24)
+                    }
+                }
+                false -> {
+                    binding.likePhotoIconImageView.apply {
+                        setImageResource(R.drawable.ic_like_border_24)
+                    }
+                }
+            }
         }
 
-        viewModel.getPhotoCameraMake().observe(this) {
+        viewModel.photoCameraMake.observe(this) {
             if (it != null) {
                 binding.cameraMakeTxt.text = it
             } else {
@@ -261,7 +276,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoCameraModel().observe(this) {
+        viewModel.photoCameraModel.observe(this) {
             if (it != null) {
                 binding.cameraModelTxt.text = it
             } else {
@@ -269,7 +284,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoCameraExposure().observe(this) {
+        viewModel.photoCameraExposure.observe(this) {
             if (it != null) {
                 binding.photoExposureTxt.text = this.getString(R.string.shutter_speed_count, it)
             } else {
@@ -277,7 +292,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoCameraAperture().observe(this) {
+        viewModel.photoCameraAperture.observe(this) {
             if (it != null) {
                 binding.photoApertureTxt.text = this.getString(R.string.aperture_f, it)
             } else {
@@ -285,7 +300,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoCameraFocalLength().observe(this) {
+        viewModel.photoCameraFocalLength.observe(this) {
             if (it != null) {
                 binding.photoFocalLengthTxt.text = this.getString(R.string.focal_length_mm, it)
             } else {
@@ -293,7 +308,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoCameraISO().observe(this) {
+        viewModel.photoCameraISO.observe(this) {
             if (it != null) {
                 binding.photoIsoTxt.text = it.toString()
             } else {
@@ -301,7 +316,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
             }
         }
 
-        viewModel.getPhotoLocation().observe(this) {
+        viewModel.photoLocation.observe(this) {
             when (it) {
                 null -> {
                     binding.locationTxt.visibility = View.GONE
@@ -322,9 +337,6 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
      *
      */
     private fun navigateToSinglePhotoFullView(photo: Photo) {
-        /*val intent = Intent(this, SinglePhotoFullViewActivity::class.java).apply {
-            putExtra("photo_url", photo.urls?.regular)
-        }*/
         startActivity(Intent(this, SinglePhotoFullViewActivity::class.java).apply {
             putExtra("photo_url", photo.urls?.regular)
         })
@@ -356,7 +368,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
                     photoOwnerFullName = response.body()?.user?.name,
                     photoOwnerUsername = response.body()?.user?.username,
                     photoOwnerProfilePic = response.body()?.user?.profileImage?.medium,
-                    photoDateCreated = response.body()?.dateUploaded,
+                    photoDateCreated = response.body()?.created_at,
                     photoLikeCount = response.body()?.likes,
                     photoLikedByUser = response.body()?.likedByUser,
                     photoCameraMake = response.body()?.exif?.make,
@@ -367,7 +379,7 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
                     photoCameraISO = response.body()?.exif?.iso,
                     photoLocation = response.body()?.location?.formattedLocation
                 )
-                viewModel.setPhoto(response.body()!!)
+                viewModel.photo.value = response.body()!!
                 response.body()!!.tags?.let { setupPhotoTagsRecyclerView(it) }
             }
 
@@ -391,6 +403,30 @@ class SinglePhotoDetailsActivity : AppCompatActivity(),
 
     override fun onPhotoTagClick(photoTag: PhotoTags) {
         Toast.makeText(this, "${photoTag.title}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPhotoLikeSuccess() {
+        viewModel.photoLikedByUser.value = true
+    }
+
+    override fun onPhotoLikeFailure() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPhotoUnlikeSuccess() {
+        viewModel.photoLikedByUser.value = false
+    }
+
+    override fun onPhotoUnlikeFailure() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPhotoDownloadSuccess() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPhotoDownloadFailure() {
+        TODO("Not yet implemented")
     }
 
 }

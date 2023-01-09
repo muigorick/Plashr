@@ -16,6 +16,4 @@ class EditorialPhotosFragmentViewModel @Inject constructor(
     val photos = homeFragmentPhotosRepository
         .getPhotos()
         .cachedIn(viewModelScope)
-
-
 }

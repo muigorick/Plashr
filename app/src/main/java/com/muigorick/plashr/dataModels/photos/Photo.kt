@@ -43,7 +43,6 @@ data class Photo(
         get() {
             val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val formatTo = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
-
             return formatTo.format(formatter.parse(created_at!!)!!)
         }
 

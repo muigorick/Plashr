@@ -1,32 +1,86 @@
 package com.muigorick.plashr.ui.activities.photos
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muigorick.plashr.dataModels.photos.Photo
 
 class SinglePhotoDetailsActivityViewModel : ViewModel() {
 
-    private val photoId = MutableLiveData<String>()
-    private val photoURL = MutableLiveData<String>()
-    private val photoDimensions = MutableLiveData<String>()
-    private val photoDescription = MutableLiveData<String>()
-    private val photoOwnerFullName = MutableLiveData<String>()
-    private val photoOwnerUsername = MutableLiveData<String>()
-    private val photoOwnerProfilePic = MutableLiveData<String>()
-    private val photoDateCreated = MutableLiveData<String>()
-    private val photoLikeCount = MutableLiveData<Int>()
-    private val photoLikedByUser = MutableLiveData<Boolean>()
-    private val photoCameraMake = MutableLiveData<String>()
-    private val photoCameraModel = MutableLiveData<String>()
-    private val photoCameraExposure = MutableLiveData<String>()
-    private val photoCameraAperture = MutableLiveData<String>()
-    private val photoCameraFocalLength = MutableLiveData<String>()
-    private val photoCameraISO = MutableLiveData<Int>()
-    private val photoLocation = MutableLiveData<String>()
-    private val shareImage = MutableLiveData<Boolean>()
-    private val photo = MutableLiveData<Photo>()
-    private val photoLoaded = MutableLiveData<Boolean>(false)
+    private val _photoId = MutableLiveData<String>()
+    val photoId: MutableLiveData<String>
+        get() = _photoId
+
+    private val _photoURL = MutableLiveData<String>()
+    val photoURL: MutableLiveData<String>
+        get() = _photoURL
+
+    private val _photoDimensions = MutableLiveData<String>()
+    val photoDimensions: MutableLiveData<String>
+        get() = _photoDimensions
+
+    private val _photoDescription = MutableLiveData<String>()
+    val photoDescription: MutableLiveData<String>
+        get() = _photoDescription
+
+    private val _photoOwnerFullName = MutableLiveData<String>()
+    val photoOwnerFullName: MutableLiveData<String>
+        get() = _photoOwnerFullName
+
+    private val _photoOwnerUsername = MutableLiveData<String>()
+    val photoOwnerUsername: MutableLiveData<String>
+        get() = _photoOwnerUsername
+
+    private val _photoOwnerProfilePic = MutableLiveData<String>()
+    val photoOwnerProfilePic: MutableLiveData<String>
+        get() = _photoOwnerProfilePic
+
+    private val _photoDateCreated = MutableLiveData<String>()
+    val photoDateCreated: MutableLiveData<String>
+        get() = _photoDateCreated
+
+    private val _photoLikeCount = MutableLiveData<Int>()
+    val photoLikeCount: MutableLiveData<Int>
+        get() = _photoLikeCount
+
+    private val _photoLikedByUser = MutableLiveData<Boolean>()
+    val photoLikedByUser: MutableLiveData<Boolean>
+        get() = _photoLikedByUser
+
+    private val _photoCameraMake = MutableLiveData<String>()
+    val photoCameraMake: MutableLiveData<String>
+        get() = _photoCameraMake
+
+    private val _photoCameraModel = MutableLiveData<String>()
+    val photoCameraModel: MutableLiveData<String>
+        get() = _photoCameraModel
+
+    private val _photoCameraExposure = MutableLiveData<String>()
+    val photoCameraExposure: MutableLiveData<String>
+        get() = _photoCameraExposure
+
+    private val _photoCameraAperture = MutableLiveData<String>()
+    val photoCameraAperture: MutableLiveData<String>
+        get() = _photoCameraAperture
+
+    private val _photoCameraFocalLength = MutableLiveData<String>()
+    val photoCameraFocalLength: MutableLiveData<String>
+        get() = _photoCameraFocalLength
+
+    private val _photoCameraISO = MutableLiveData<Int>()
+    val photoCameraISO: MutableLiveData<Int>
+        get() = _photoCameraISO
+
+    private val _photoLocation = MutableLiveData<String>()
+    val photoLocation: MutableLiveData<String>
+        get() = _photoLocation
+
+    private val _photoLoaded = MutableLiveData(false)
+    val photoLoaded: MutableLiveData<Boolean>
+        get() = _photoLoaded
+
+    private val _photo = MutableLiveData<Photo>()
+    val photo: MutableLiveData<Photo>
+        get() = _photo
 
     fun setPhotoDetails(
         photoId: String?,
@@ -65,101 +119,4 @@ class SinglePhotoDetailsActivityViewModel : ViewModel() {
         this.photoCameraISO.value = photoCameraISO
         this.photoLocation.value = photoLocation
     }
-
-    fun getPhotoURL(): LiveData<String> {
-        return photoURL
-    }
-
-    fun getPhotoDimensions(): LiveData<String> {
-        return photoDimensions
-    }
-
-    fun getPhotoID(): LiveData<String> {
-        return photoId
-    }
-
-    fun setPhotoID(photoId: String?) {
-        this.photoId.value = photoId
-    }
-
-    fun getPhotoDescription(): LiveData<String> {
-        return photoDescription
-    }
-
-    fun getPhotoOwnerFullName(): LiveData<String> {
-        return photoOwnerFullName
-    }
-
-    fun getPhotoOwnerUsername(): LiveData<String> {
-        return photoOwnerUsername
-    }
-
-    fun getPhotoOwnerProfilePic(): LiveData<String> {
-        return photoOwnerProfilePic
-    }
-
-    fun getPhotoDateCreated(): LiveData<String> {
-        return photoDateCreated
-    }
-
-    fun getPhotoLikeCount(): LiveData<Int> {
-        return photoLikeCount
-    }
-
-    fun getPhotoLikedByUser(): LiveData<Boolean> {
-        return photoLikedByUser
-    }
-
-    fun getPhotoCameraMake(): LiveData<String> {
-        return photoCameraMake
-    }
-
-    fun getPhotoCameraModel(): LiveData<String> {
-        return photoCameraModel
-    }
-
-    fun getPhotoCameraExposure(): LiveData<String> {
-        return photoCameraExposure
-    }
-
-    fun getPhotoCameraAperture(): LiveData<String> {
-        return photoCameraAperture
-    }
-
-    fun getPhotoCameraFocalLength(): LiveData<String> {
-        return photoCameraFocalLength
-    }
-
-    fun getPhotoCameraISO(): LiveData<Int> {
-        return photoCameraISO
-    }
-
-    fun getPhotoLocation(): LiveData<String> {
-        return photoLocation
-    }
-
-    fun getShareImage(): LiveData<Boolean> {
-        return shareImage
-    }
-
-    fun setShareImage(shareImage: Boolean) {
-        this.shareImage.value = shareImage
-    }
-
-    fun setPhoto(photo: Photo) {
-        this.photo.value = photo
-    }
-
-    fun getPhoto(): MutableLiveData<Photo> {
-        return photo
-    }
-
-    fun setPhotoLoaded(loaded: Boolean) {
-        this.photoLoaded.value = loaded
-    }
-
-    fun getPhotoLoaded(): MutableLiveData<Boolean> {
-        return photoLoaded
-    }
-
 }

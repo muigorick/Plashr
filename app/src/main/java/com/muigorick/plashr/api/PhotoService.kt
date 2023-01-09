@@ -38,7 +38,6 @@ interface PhotoService {
         @Query("orientation") orientation: String
     ): Call<Photo>
 
-
     /**
      * Gets a photo using the ID.
      *
@@ -49,5 +48,25 @@ interface PhotoService {
         @Path("id") id: String,
         @Query("resolution") resolution: String,
         @Query("quantity") quantity: Int
+    ): Call<Photo>
+
+    /**
+     * Likes a photo using the ID.
+     *
+     * @return A photo model call.
+     */
+    @POST("photos/{id}/like")
+    fun likePhoto(
+        @Path("id") id: String
+    ): Call<Photo>
+
+    /**
+     * Unlikes a photo using the ID.
+     *
+     * @return A photo model call.
+     */
+    @DELETE("photos/{id}/like")
+    fun unlikePhoto(
+        @Path("id") id: String
     ): Call<Photo>
 }

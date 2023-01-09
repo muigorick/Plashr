@@ -13,7 +13,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.muigorick.plashr.R
@@ -32,8 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(),
-    PhotoRecyclerViewAdapter.OnPhotoClickListener {
+class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -48,8 +46,7 @@ class HomeFragment : Fragment(),
     private lateinit var photosAdapter: PhotoRecyclerViewAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -89,28 +86,19 @@ class HomeFragment : Fragment(),
     private fun setupPhotos() {
         binding.apply {
             homePhotosRecyclerView.itemAnimator = null
-            homePhotosRecyclerView.adapter = photosAdapter.withLoadStateHeaderAndFooter(
-                header = LoadStateAdapter { photosAdapter.retry() },
-                footer = LoadStateAdapter { photosAdapter.retry() }
-            )
+            homePhotosRecyclerView.adapter =
+                photosAdapter.withLoadStateHeaderAndFooter(
+                    header = LoadStateAdapter { photosAdapter.retry() },
+                    footer = LoadStateAdapter { photosAdapter.retry() }
+                )
 
             settingsViewModel.readImageLayoutFromDataStore.observe(
                 requireActivity()
             ) { imageLayout ->
                 when (imageLayout) {
-                    "Grid" ->
-                        homePhotosRecyclerView.layoutManager =
-                            StaggeredGridLayoutManager(
-                                resources.getInteger(R.integer.staggered_grid_column_count),
-                                StaggeredGridLayoutManager.VERTICAL
-                            )
-                    "Cards" ->
-                        homePhotosRecyclerView.layoutManager =
-                            GridLayoutManager(
-                                context,
-                                resources.getInteger(R.integer.column_count)
-                            )
-
+                    "Grid" -> homePhotosRecyclerView.layoutManager = StaggeredGridLayoutManager(
+                        2, StaggeredGridLayoutManager.VERTICAL
+                    )
                     else -> homePhotosRecyclerView.layoutManager =
                         LinearLayoutManager(requireContext())
 

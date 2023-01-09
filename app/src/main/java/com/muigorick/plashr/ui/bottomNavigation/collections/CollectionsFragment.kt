@@ -1,6 +1,5 @@
 package com.muigorick.plashr.ui.bottomNavigation.collections
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +8,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.muigorick.plashr.R
 import com.muigorick.plashr.adapters.CollectionsRecyclerViewAdapter
 import com.muigorick.plashr.adapters.LoadStateAdapter
 import com.muigorick.plashr.dataModels.collections.Collection
 import com.muigorick.plashr.databinding.FragmentCollectionsBinding
-import com.muigorick.plashr.ui.activities.collections.SingleCollectionDetailsActivity
-import com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class CollectionsFragment : Fragment(), CollectionsRecyclerViewAdapter.OnCollectionClickListener {
@@ -60,11 +54,7 @@ class CollectionsFragment : Fragment(), CollectionsRecyclerViewAdapter.OnCollect
                     header = LoadStateAdapter { collectionsRecyclerViewAdapter.retry() },
                     footer = LoadStateAdapter { collectionsRecyclerViewAdapter.retry() }
                 )
-            collectionsRecyclerview.layoutManager =
-                GridLayoutManager(
-                    context,
-                    resources.getInteger(R.integer.collection_column_count)
-                )
+            collectionsRecyclerview.layoutManager = LinearLayoutManager(context)
         }
 
         viewModel.collections.observe(viewLifecycleOwner) { collections ->
