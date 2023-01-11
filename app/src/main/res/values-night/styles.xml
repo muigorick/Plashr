@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="collapsingToolbarExpandedTitleAppearance">
-        <item name="android:textSize">26sp</item>
-    </style>
-
-</resources>
