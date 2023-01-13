@@ -40,41 +40,57 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivitySingleCollectionDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initToolbar()
         initRecyclerView()
-
-        if (intent?.extras != null) {
-            Log.i("SINGLE COLLECTION DETAILS", "onNewIntent: ${intent.data}")
-
-            val collection = if (Build.VERSION.SDK_INT >= 33) {
-                intent.getParcelableExtra("collection", Collection::class.java)
-            } else {
-                intent.getParcelableExtra<Collection>("collection")
-            }
-            if (collection != null) {
-                viewModel.setCollectionDetails(
-                    collectionId = collection.id,
-                    collectionTitle = collection.title,
-                    collectionDescription = collection.description,
-                    collectionPublishedDate = collection.published_at,
-                    collectionTotalPhotos = collection.totalPhotos,
-                    collectionIsPrivate = collection.private,
-                    collectionCoverPhoto = collection.coverPhoto,
-                    collectionUser = collection.user,
-                )
-
-                viewModel.setCollection(collection = collection)
-            }
-        } else {
-            // Handle the deeplink here. Below is how the address if formatted.
-            // https://unsplash.com/collections/1118919/coffee-culture-%E2%98%95%EF%B8%8F
-            // Use the ID as we can fetch it from the data portion of the address.
-
-            //getCollectionDetails(collectionID = Utils(context = this@SingleCollectionDetailsActivity).handleDeeplinkIntent(intent = intent)!!.pathSegments[1])
-
-        }
-
+        handleCollectionIntent(intent = intent)
         setCollectionObservers()
+    }
+
+    /**
+     * Handles the incoming intent that contains the photo bundle.
+     *
+     * @param intent Intent the photo bundle will be extracted from.
+     */
+    @Suppress("DEPRECATION")
+    private fun handleCollectionIntent(intent: Intent) {
+        when {
+            (intent.extras != null) -> {
+                val collection = when {
+                    Build.VERSION.SDK_INT >= 33 -> {
+                        intent.getParcelableExtra("collection", Collection::class.java)
+
+                    }
+                    else -> {
+                        intent.getParcelableExtra("collection")
+                    }
+                }
+                when {
+                    collection != null -> {
+                        viewModel.setCollectionDetails(
+                            collectionId = collection.id,
+                            collectionTitle = collection.title,
+                            collectionDescription = collection.description,
+                            collectionPublishedDate = collection.published_at,
+                            collectionTotalPhotos = collection.totalPhotos,
+                            collectionIsPrivate = collection.private,
+                            collectionCoverPhoto = collection.coverPhoto,
+                            collectionUser = collection.user,
+                        )
+
+                        viewModel.setCollection(collection = collection)
+                    }
+                    else -> {
+                        // Handle the deeplink here. Below is how the address if formatted.
+                        // https://unsplash.com/collections/1118919/coffee-culture-%E2%98%95%EF%B8%8F
+                        // Use the ID as we can fetch it from the data portion of the address.
+
+                        //getCollectionDetails(collectionID = Utils(context = this@SingleCollectionDetailsActivity).handleDeeplinkIntent(intent = intent)!!.pathSegments[1])
+
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -92,8 +108,7 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
         binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 // Collapsed
-                binding.singleCollectionActivityToolbar.title =
-                    viewModel.getCollectionTitle().value
+                binding.singleCollectionActivityToolbar.title = viewModel.getCollectionTitle().value
             } else {
                 // Expanded
                 binding.singleCollectionActivityToolbar.title = null
@@ -103,7 +118,7 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
     }
 
     /**
-     * Override method that sets up our menu for the activity
+     * Sets up our menu for the activity.
      */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -112,14 +127,16 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
     }
 
     /**
-     * Override method that handles the click actions for our toolbar menu
+     * Handles the click actions for our toolbar menu.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.shareCollection -> {
                 Log.i("MENU", "onOptionsItemSelected: Share Collection Clicked!")
                 if (viewModel.getCollectionID().value != null) {
-                    CollectionActions(this, collection = viewModel.getCollection().value!!).shareCollection()
+                    CollectionActions(
+                        this, collection = viewModel.getCollection().value!!
+                    ).shareCollection()
                 }
                 true
             }
@@ -140,10 +157,8 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
         }
 
         viewModel.getCollectionDescription().observe(this) { description ->
-            if (description == null)
-                binding.collectionDescriptionTxt.visibility = View.GONE
-            else
-                binding.collectionDescriptionTxt.text = description
+            if (description == null) binding.collectionDescriptionTxt.visibility = View.GONE
+            else binding.collectionDescriptionTxt.text = description
         }
 
         viewModel.getCollectionPublishedDate().observe(this) {
@@ -167,10 +182,8 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
         }
 
         viewModel.getCollectionUser().observe(this) { user ->
-            binding.curatedByTxt.text =
-                resources.getString(R.string.curated_by_username, user.name)
-            Glide.with(this)
-                .load(user.profileImage!!.medium)
+            binding.curatedByTxt.text = resources.getString(R.string.curated_by_username, user.name)
+            Glide.with(this).load(user.profileImage!!.medium)
                 .into(binding.collectionCuratorProfilePicture)
         }
     }
@@ -178,26 +191,23 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
     private fun initRecyclerView() {
         val photosAdapter = PhotoRecyclerViewAdapter(this, SharedPreferences(this))
         binding.apply {
-            collectionPhotosRecyclerView.setHasFixedSize(true)
-            collectionPhotosRecyclerView.itemAnimator = null
-            collectionPhotosRecyclerView.adapter = photosAdapter
+            collectionPhotosRecyclerView.apply {
+                setHasFixedSize(true)
+                itemAnimator = null
+                adapter = photosAdapter
+            }
 
             settingsViewModel.readImageLayoutFromDataStore.observe(
                 this@SingleCollectionDetailsActivity
             ) { imageLayout ->
                 when (imageLayout) {
-                    "Grid" ->
-                        collectionPhotosRecyclerView.layoutManager =
-                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
+                    "Grid" -> collectionPhotosRecyclerView.layoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     else -> collectionPhotosRecyclerView.layoutManager =
-
-
                         LinearLayoutManager(this@SingleCollectionDetailsActivity)
                 }
             }
         }
-
 
         viewModel.collectionPhotos.observe(this) { photos ->
             binding.collectionPhotosRecyclerView.scrollToPosition(0)
@@ -208,8 +218,7 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
     override fun onPhotoClick(photo: Photo) {
         Log.i("Collection Photo", "onPhotoClick: $photo ")
         val intent = Intent(
-            this@SingleCollectionDetailsActivity,
-            SinglePhotoDetailsActivity::class.java
+            this@SingleCollectionDetailsActivity, SinglePhotoDetailsActivity::class.java
         ).apply {
             putExtra("photo", photo)
             addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -224,5 +233,4 @@ class SingleCollectionDetailsActivity : AppCompatActivity(),
     override fun onPhotoOwnerClick(photo: Photo) {
         Toast.makeText(this, "OWNER CLICKED", Toast.LENGTH_SHORT).show()
     }
-
 }

@@ -20,8 +20,9 @@ import com.muigorick.plashr.adapters.LoadStateAdapter
 import com.muigorick.plashr.adapters.PhotoRecyclerViewAdapter
 import com.muigorick.plashr.dataModels.photos.Photo
 import com.muigorick.plashr.databinding.FragmentHomeBinding
-import com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity
+import com.muigorick.plashr.ui.activities.mainActivity.MainActivity
 import com.muigorick.plashr.ui.activities.profile.universalProfile.UserProfileActivity
+import com.muigorick.plashr.ui.activities.photos.SinglePhotoDetailsActivity
 import com.muigorick.plashr.ui.activities.settings.SettingsActivity
 import com.muigorick.plashr.ui.activities.settings.SettingsViewModel
 import com.muigorick.plashr.ui.bottomNavigation.home.editorialPhotos.EditorialPhotosFragmentViewModel
@@ -39,17 +40,22 @@ class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private val editorialPhotosFragmentViewModel: EditorialPhotosFragmentViewModel by viewModels()
     private lateinit var settingsViewModel: SettingsViewModel
-
     private lateinit var photosAdapter: PhotoRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        setupMenu()
+        return binding.root
+    }
 
+    /**
+     * Overrides menu options for the [MainActivity] toolbar
+     */
+    private fun setupMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -66,8 +72,6 @@ class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +85,7 @@ class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
     /**
      * Sets up the photos and initializes the respective recyclerview to be viewed on the Home Fragment.
      *
-     * TODO Add the error layouts
+     * TODO: "Add the error layouts"
      */
     private fun setupPhotos() {
         binding.apply {
@@ -124,6 +128,7 @@ class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
 
     /**
      * Navigates us to the [SinglePhotoDetailsActivity] where the user can view more details about the photo.
+     *
      * @param photo Photo a user wants to see more details of.
      */
     override fun onPhotoClick(photo: Photo) {
@@ -132,7 +137,8 @@ class HomeFragment : Fragment(), PhotoRecyclerViewAdapter.OnPhotoClickListener {
     }
 
     /**
-     * Navigates us to the [UserProfileActivity] where the user can view the photo owner's profile..
+     * Navigates us to the [UserProfileActivity] where the user can view the photo owner's profile.
+     *
      * @param photo Photo a user wants to see the owner's profile.
      */
     override fun onPhotoOwnerClick(photo: Photo) {

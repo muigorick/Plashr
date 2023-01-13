@@ -16,7 +16,6 @@ import com.muigorick.plashr.utils.SharedPreferences
 
 /**
  * Photos recyclerview adapter.
- *
  * It is reused whenever we fetch paginated photos that are meant to be displayed in a recyclerview.
  *
  * @param listener  The click listener used to handle the click listeners.

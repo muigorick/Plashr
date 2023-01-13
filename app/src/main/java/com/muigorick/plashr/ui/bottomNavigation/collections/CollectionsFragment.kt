@@ -37,9 +37,7 @@ class CollectionsFragment : Fragment(), CollectionsRecyclerViewAdapter.OnCollect
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupCollections()
-        //   viewModel = ViewModelProvider(this).get(CollectionsFragmentViewModel::class.java)
     }
 
     /**
@@ -76,6 +74,6 @@ class CollectionsFragment : Fragment(), CollectionsRecyclerViewAdapter.OnCollect
     }
 
     override fun onCollectionOwnerClick(collection: Collection) {
-        // TODO("Do we really need this?")
+       // TODO To be added later by showing a user's profile via a bottom sheet.
     }
 }
